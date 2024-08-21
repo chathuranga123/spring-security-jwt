@@ -1,0 +1,79 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="dateType" value="DATETIME" dbms="mysql"/>
+    <property name="dateType" value="TIMESTAMP" dbms="h2"/>
+
+    <property name="jsonType" value="JSON" dbms="mysql"/>
+    <property name="jsonType" value="LONGTEXT" dbms="h2"/>
+
+
+
+    <changeSet id="1" author="Supul Gintota">
+        <createTable tableName="USERS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="USERNAME" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FULL_NAME" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROFILE_PICTURE" type="LONGBLOB">
+                <constraints nullable="true"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD_STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATTEMPT" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_LOGGED_DATE" type="${dateType}">
+                <constraints nullable="true"/>
+            </column>
+            <column name="PASSWORD_EXPIRE_DATE" type="${dateType}">
+                <constraints nullable="true"/>
+            </column>
+            <column name="REMARK" type="LONGTEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="USER"/>
+        </rollback>
+    </changeSet>
+
+
+
+
+
+</databaseChangeLog>
+
+
