@@ -71,6 +71,42 @@
     </changeSet>
 
 
+    <changeSet id="2" author="Supul Gintota">
+        <createTable tableName="USER_ROLE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="LONGTEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="USER_ROLE"/>
+        </rollback>
+    </changeSet>
+
+
 
 
 
