@@ -16,12 +16,12 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Long id;
+    private int id;
     @Column(name = "USERNAME", nullable = false, length = 64)
     private String username;
     @Column(name = "FULL_NAME", nullable = false, length = 128)
@@ -30,8 +30,9 @@ public class User extends CommonEntity {
     private String email;
     @Column(name = "PASSWORD")
     private String password;
+    @Lob
     @Column(name = "PROFILE_PICTURE")
-    private String profilePicture;
+    private  byte[] profilePicture;
     @Column(name = "STATUS", nullable = false, length = 8)
     private String statusCode;
     @Column(name = "PASSWORD_STATUS", length = 8)

@@ -1,27 +1,28 @@
 package com.gwsc.springsecurityjwt.mapping;
 
-/*
- * @author: supul_g on 03/02/2021
- */
-
 import jakarta.persistence.*;
 import lombok.Data;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-
+/*
+ * @author: supul_g on 09/02/2021
+ */
 @Data
 @Entity
-@Table(name = "user_role")
-public class UserRole extends CommonEntity {
+@Table(name = "user_user_role")
+public class UserUserRole  extends CommonEntity {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private int id;
-    @Column(name = "CODE", nullable = false, length = 8)
-    private String code;
-    @Column(name = "DESCRIPTION", nullable = false, length = 64)
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER", nullable = false)
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ROLE", nullable = false)
+    private UserRole userRole;
     @Column(name = "STATUS", nullable = false, length = 8)
     private String statusCode;
     @Column(name = "REMARK")

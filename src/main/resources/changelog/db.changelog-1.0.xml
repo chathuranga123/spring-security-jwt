@@ -15,7 +15,7 @@
 
 
     <changeSet id="1" author="Supul Gintota">
-        <createTable tableName="USERS">
+        <createTable tableName="USER">
             <column name="ID" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -49,7 +49,7 @@
             <column name="PASSWORD_EXPIRE_DATE" type="${dateType}">
                 <constraints nullable="true"/>
             </column>
-            <column name="REMARK" type="LONGTEXT">
+            <column name="REMARK" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
             <column name="CREATED_USER" type="varchar(64)">
@@ -85,7 +85,7 @@
             <column name="STATUS" type="varchar(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="REMARK" type="LONGTEXT">
+            <column name="REMARK" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
             <column name="CREATED_USER" type="varchar(64)">
@@ -107,8 +107,264 @@
     </changeSet>
 
 
+    <changeSet id="3" author="Supul Gintota">
+        <createTable tableName="MODULE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="MODULE"/>
+        </rollback>
+    </changeSet>
 
 
+    <changeSet id="4" author="Supul Gintota">
+        <createTable tableName="SECTION">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SORT_KEY" type="int(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODULE" type="int(11)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_MODULE_SECTION"
+                        referencedTableName="MODULE"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="SECTION"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="5" author="Supul Gintota">
+        <createTable tableName="PAGE">
+            <column name="CODE" type="varchar(8)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SECTION" type="int">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_SECTION_PAGE"
+                        referencedTableName="SECTION"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="URL" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FREEZED" type="TINYINT(1)" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DUAL_AUTH" type="TINYINT(1)" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SORT_KEY" type="int(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="PAGE"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="6" author="Supul Gintota">
+        <createTable tableName="USER_USER_ROLE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="USER" type="int">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_USER_USER_USER_ROLE"
+                        referencedTableName="USER"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="USER_ROLE" type="int">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_USER_ROLE_USER_USER_ROLE"
+                        referencedTableName="USER_ROLE"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="USER_USER_ROLE"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="7" author="Supul Gintota">
+        <createTable tableName="PAGE_TASK">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="PAGE" type="varchar(8)">
+                <constraints
+                        primaryKey="true"
+                        nullable="false"
+                        foreignKeyName="FK_PAGE_PAGE_TASK"
+                        referencedTableName="PAGE"
+                        referencedColumnNames="CODE"/>
+            </column>
+            <column name="TASK" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="PAGE_TASK"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8" author="Supul Gintota">
+        <createTable tableName="PAGE_TASK_USER_ROLE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="PAGE_TASK" type="int">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_PAGE_TASK_USER_ROLE"
+                        referencedTableName="PAGE_TASK"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="USER_ROLE" type="int">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="FK_USER_ROLE_PAGE_TASK_USER_ROLE"
+                        referencedTableName="USER_ROLE"
+                        referencedColumnNames="ID"/>
+            </column>
+            <column name="STATUS" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_USER" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_TIME" type="${dateType}" defaultValue="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="PAGE_TASK_USER_ROLE"/>
+        </rollback>
+    </changeSet>
 
 </databaseChangeLog>
 

@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 public class UserDTO extends CommonDTO{
-    private Long id;
+    private int id;
     @NotBlank(message = "Please provide a username")
     @Size(min = 1, max = 64, message = "Username maximum length should be 64 characters.")
     private String username;
@@ -22,7 +22,7 @@ public class UserDTO extends CommonDTO{
     private String userRoleDescription;
     private String statusDescription;
     private String passwordStatus;
-    private String profilePicture;
+    private byte[] profilePicture;
     private int attempt;
     private Date lastLoggedDate;
     private Date passwordExpireDate;
